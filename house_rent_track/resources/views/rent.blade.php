@@ -1,0 +1,56 @@
+@extends('layouts.app')
+
+
+@section('content')
+  
+    <section class="search_tenants">
+  
+      <h1> Track Rent </h1>
+        <form action="" method="post">
+          <p>Enter Tanent ID: </p>
+          <input type="text" name = "tenantId">
+          <input type="submit" name = "search_tenant_id"
+          value = "search">
+        </form>
+  
+    </section>
+  
+  
+  <section class = "tenants_result">
+    <?php
+      if (isset($_POST['search_tenant_id'])) {
+        $sql = "SELECT * FROM tenantinformation WHERE tenantId = '$_POST[tenantId]'";
+          $stmt = mysqli_query($conn, $sql);
+        while ($row = mysqli_fetch_assoc($stmt)) {
+          ?>
+          <table>
+            <tr>
+              <td><b>Tenant ID:</b></td>
+              <td>
+                <input type="number" value="<?php echo $row['tenantId'];?>" disabled>
+              </td>
+            </tr>
+            
+            <tr>
+              <td><b>Flat No:</b></td>
+              <td>
+                <input type="text" value="<?php echo $row['flatNo'];?>" disabled>
+              </td>
+            </tr>
+  
+  
+            <tr>
+              <td><b>Rent Per Month:</b></td>
+              <td>
+                <input type="text" value="<?php echo $row['rent'];?>" disabled>
+              </td>
+            </tr>
+          </table>
+        </section>
+         <?php
+        }
+  
+      }
+    ?>
+  
+@endsection
